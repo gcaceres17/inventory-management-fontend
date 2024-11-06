@@ -1,49 +1,39 @@
-// app/home/page.js
 'use client'
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from 'next/link'
+import Sidebar from '@/components/sidebar'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">Sistema de Gestión de Inventario</h1>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <CardTitle>Dashboard</CardTitle>
-            <CardDescription>Ver resumen del inventario</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Link href="/dashboard">
-              <Button className="w-full">Ir al Dashboard</Button>
-            </Link>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Gestión de Inventario</CardTitle>
-            <CardDescription>Administrar items del inventario</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Link href="/inventory-management">
-              <Button className="w-full">Gestionar Inventario</Button>
-            </Link>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Órdenes de Compra</CardTitle>
-            <CardDescription>Crear nuevas órdenes de compra</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Link href="/purchase-order">
-              <Button className="w-full">Crear Orden de Compra</Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
+    <div className="flex h-screen bg-gray-100">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto p-8">
+        <div className="mx-auto max-w-6xl">
+          <h1 className="text-3xl font-bold mb-8">Bienvenido al Sistema de Gestión de Inventario</h1>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold leading-none tracking-tight mb-2">Inventario Total</h3>
+                <p className="text-sm text-muted-foreground mb-4">Gestiona tu inventario actual</p>
+                <div className="text-3xl font-bold">1,234</div>
+              </div>
+            </div>
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold leading-none tracking-tight mb-2">Órdenes Pendientes</h3>
+                <p className="text-sm text-muted-foreground mb-4">Órdenes que requieren atención</p>
+                <div className="text-3xl font-bold">23</div>
+              </div>
+            </div>
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold leading-none tracking-tight mb-2">Clientes Activos</h3>
+                <p className="text-sm text-muted-foreground mb-4">Total de clientes registrados</p>
+                <div className="text-3xl font-bold">156</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   )
 }

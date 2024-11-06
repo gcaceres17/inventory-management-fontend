@@ -34,6 +34,9 @@ export default function Navigation() {
           <Link href="/inventory-management">
             <Button variant="ghost">Inventario</Button>
           </Link>
+          <Link href="/customer-registration">
+            <Button variant="ghost">Clientes</Button>
+          </Link>
           <Link href="/purchase-order">
             <Button variant="ghost">Órdenes</Button>
           </Link>

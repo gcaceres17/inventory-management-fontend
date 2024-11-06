@@ -1,27 +1,37 @@
 // app/dashboard/page.js
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import Navigation from '@/components/Navigation'
+import Sidebar from '@/components/sidebar'
 
 export default function Dashboard() {
   const [inventoryItems, setInventoryItems] = useState([])
 
   useEffect(() => {
-    setInventoryItems([
-      { id: 1, name: 'Widget A', quantity: 100, price: 9.99 },
-      { id: 2, name: 'Gadget B', quantity: 50, price: 19.99 },
-      { id: 3, name: 'Doohickey C', quantity: 75, price: 14.99 },
-    ])
+    const fetchInventoryItems = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/inventory/')
+        if (!response.ok) {
+          throw new Error('Error al obtener los productos del inventario')
+        }
+        const data = await response.json()
+        setInventoryItems(data)
+      } catch (error) {
+        console.error('Error:', error)
+      }
+    }
+
+    fetchInventoryItems()
   }, [])
 
   const totalValue = inventoryItems.reduce((sum, item) => sum + item.quantity * item.price, 0)
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navigation />
+      <Sidebar />
       <div className="container mx-auto p-8">
         <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">

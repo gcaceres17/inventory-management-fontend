@@ -6,65 +6,94 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
- 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
  
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
  
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
- 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
- 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 221 83% 53%;
     --primary-foreground: 210 40% 98%;
  
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
  
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
  
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
- 
-    --ring: 215 20.2% 65.1%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221 83% 53%;
  
     --radius: 0.5rem;
+
+    /* Colores personalizados para el sistema de inventario */
+    --inventory-blue: 221 83% 53%;
+    --inventory-green: 142 76% 36%;
+    --inventory-yellow: 45 93% 47%;
+    --inventory-red: 0 84% 60%;
+    --inventory-gray: 220 14% 96%;
   }
  
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
  
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
  
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
  
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
- 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
- 
-    --primary: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 222.2 47.4% 11.2%;
  
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
  
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
  
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
+    --destructive-foreground: 210 40% 98%;
  
-    --ring: 217.2 32.6% 17.5%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    /* Colores personalizados para el sistema de inventario en modo oscuro */
+    --inventory-blue: 217 91% 60%;
+    --inventory-green: 142 71% 45%;
+    --inventory-yellow: 45 93% 47%;
+    --inventory-red: 0 84% 60%;
+    --inventory-gray: 220 14% 96%;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-section, .print-section * {
+    visibility: visible;
+  }
+  .print-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .print:hidden {
+    display: none !important;
   }
 }
  
@@ -75,4 +104,86 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Clases de utilidad personalizadas para el sistema de inventario */
+.bg-inventory-blue {
+  background-color: hsl(var(--inventory-blue));
+}
+
+.bg-inventory-green {
+  background-color: hsl(var(--inventory-green));
+}
+
+.bg-inventory-yellow {
+  background-color: hsl(var(--inventory-yellow));
+}
+
+.bg-inventory-red {
+  background-color: hsl(var(--inventory-red));
+}
+
+.bg-inventory-gray {
+  background-color: hsl(var(--inventory-gray));
+}
+
+.text-inventory-blue {
+  color: hsl(var(--inventory-blue));
+}
+
+.text-inventory-green {
+  color: hsl(var(--inventory-green));
+}
+
+.text-inventory-yellow {
+  color: hsl(var(--inventory-yellow));
+}
+
+.text-inventory-red {
+  color: hsl(var(--inventory-red));
+}
+
+/* Estilos adicionales para mejorar la apariencia del sistema de inventario */
+.inventory-card {
+  @apply bg-white rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-lg;
+}
+
+.inventory-button {
+  @apply px-4 py-2 rounded-md font-semibold text-white transition-colors duration-300;
+}
+
+.inventory-button-primary {
+  @apply bg-inventory-blue hover:bg-blue-600;
+}
+
+.inventory-button-success {
+  @apply bg-inventory-green hover:bg-green-600;
+}
+
+.inventory-button-warning {
+  @apply bg-inventory-yellow hover:bg-yellow-600;
+}
+
+.inventory-button-danger {
+  @apply bg-inventory-red hover:bg-red-600;
+}
+
+.inventory-input {
+  @apply border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.inventory-table {
+  @apply w-full border-collapse;
+}
+
+.inventory-table th {
+  @apply bg-inventory-gray text-left p-3 font-semibold;
+}
+
+.inventory-table td {
+  @apply border-t p-3;
+}
+
+.inventory-table tr:hover {
+  @apply bg-gray-50;
 }

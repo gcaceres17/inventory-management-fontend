@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Navigation from '@/components/Navigation'
+import Sidebar from '@/components/sidebar'
 
 export default function InventoryManagement() {
   const [inventoryItems, setInventoryItems] = useState([])
@@ -119,7 +120,7 @@ export default function InventoryManagement() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navigation />
+      <Sidebar />
       <div className="container mx-auto p-8">
         <h1 className="text-3xl font-bold mb-8">Inventory Management</h1>
         <Card className="mb-8">
@@ -178,8 +179,8 @@ export default function InventoryManagement() {
                     <TableCell>${(item.quantity * item.price).toFixed(2)}</TableCell>
                     <TableCell>
                       <div className="flex space-x-2">
-                        <Button onClick={() => handleEditItem(item)}>editar</Button>
-                        <Button onClick={() => handleDeleteItem(item.id)}>eliminar</Button>
+                        <Button onClick={() => handleEditItem(item)}>Editar</Button>
+                        <Button variant="destructive"onClick={() => handleDeleteItem(item.id)}>Eliminar</Button>
                       </div>
                     </TableCell>
                   </TableRow>
