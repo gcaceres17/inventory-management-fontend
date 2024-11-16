@@ -40,7 +40,7 @@ export default function Dashboard() {
               <CardTitle className="text-sm font-medium">Total Inventory Value</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">${totalValue.toFixed(2)}</div>
+              <div className="text-2xl font-bold">Gs {totalValue.toLocaleString()}</div>
             </CardContent>
           </Card>
           <Card>
@@ -72,8 +72,8 @@ export default function Dashboard() {
                   <TableRow key={item.id}>
                     <TableCell>{item.name}</TableCell>
                     <TableCell>{item.quantity}</TableCell>
-                    <TableCell>${item.price.toFixed(2)}</TableCell>
-                    <TableCell>${(item.quantity * item.price).toFixed(2)}</TableCell>
+                    <TableCell>Gs. {item.price.toLocaleString()}</TableCell>
+                    <TableCell>Gs. {(item.quantity * item.price).toLocaleString()}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -5,10 +5,6 @@ import Link from 'next/link'
 
 import {
     LayoutDashboard,
-    Users,
-    FolderKanban,
-    Calendar,
-    FileText,
     BarChart3,
     Boxes,
     ShoppingCart,
