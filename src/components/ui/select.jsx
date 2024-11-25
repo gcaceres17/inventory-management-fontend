@@ -1,35 +1,24 @@
 import React from 'react';
+import {Select, SelectSection, SelectItem} from "@nextui-org/select";
 
-// Componente principal Select
-export const Select = ({ children, value, onValueChange, ...props }) => (
-  <select
-    value={value}
-    onChange={(e) => onValueChange(e.target.value)}
-    className="border rounded p-2 w-full"
-    {...props}
-  >
-    {children}
-  </select>
-);
+export default function SelectComponent() {
+  return (
+    <Select
+      placeholder="Select an option"
+      onChange={(e) => console.log(e.target.value)}
+    >
+      <SelectSection title="Section 1">
+        <SelectItem value="1">Option 1</SelectItem>
+        <SelectItem value="2">Option 2</SelectItem>
+        <SelectItem value="3">Option 3</SelectItem>
+      </SelectSection>
+      <SelectSection title="Section 2">
+        <SelectItem value="4">Option 4</SelectItem>
+        <SelectItem value="5">Option 5</SelectItem>
+        <SelectItem value="6">Option 6</SelectItem>
+      </SelectSection>
+    </Select>
+  );
+}
 
-// Componente para el trigger del select
-export const SelectTrigger = ({ children, ...props }) => (
-  <div className="relative" {...props}>
-    {children}
-  </div>
-);
 
-// Componente para el contenido del select
-export const SelectContent = ({ children }) => (
-  <>{children}</>
-);
-
-// Componente para cada opción del select
-export const SelectItem = ({ value, children }) => (
-  <option value={value}>{children}</option>
-);
-
-// Componente para el valor del select
-export const SelectValue = ({ placeholder, ...props }) => (
-  <input type="text" placeholder={placeholder} {...props} />
-); 

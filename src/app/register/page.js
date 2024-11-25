@@ -25,7 +25,8 @@ export default function Register() {
       })
 
       if (!response.ok) {
-        throw new Error('Error en el registro')
+        //throw new Error('Error en el registro')
+        console.log('Error en el registro')
       }
 
       const data = await response.json()

@@ -1,6 +1,4 @@
 'use client'
-
-import Layout from '@/components/layout';
 import Sidebar from '@/components/sidebar'
 import { useEffect, useState } from 'react';
 
@@ -11,6 +9,11 @@ export default function Home() {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          history.push('/login');
+          return;
+        }
         const response = await fetch('http://localhost:8000/dashboard', {
           method: 'GET',
         });
@@ -34,7 +37,7 @@ export default function Home() {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <Layout/>
+      <Sidebar/>
       <main className="flex-1 overflow-y-auto p-8">
         <div className="mx-auto max-w-6xl">
           <h1 className="text-3xl font-bold mb-8">Bienvenido al Sistema de Gestión de Inventario</h1>

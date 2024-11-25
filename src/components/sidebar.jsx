@@ -86,14 +86,9 @@ export default function Sidebar() {
 
                 <div className="border-t p-4">
                     <div className="flex items-center gap-3 hover:bg-inventory-gray rounded-lg p-2 cursor-pointer transition-colors duration-200">
-                        <img
-                            className="h-8 w-8 rounded-full"
-                            src="/placeholder.svg?height=32&width=32"
-                            alt="User avatar"
-                        />
                         <div>
-                            <p className="text-sm font-medium">Tom Cook</p>
-                            <p className="text-xs text-gray-500">tom@example.com</p>
+                            <p className="text-sm font-medium">Giovanni Caceres</p>
+                            <p className="text-xs text-gray-500">giovanni@gmail.com</p>
                         </div>
                     </div>
                 </div>

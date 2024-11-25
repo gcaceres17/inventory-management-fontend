@@ -1,19 +1,14 @@
-// app/purchase-order/page.js
 'use client'
-
-import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import Sidebar from '@/components/sidebar'
-import { Table, TableHeader, TableBody, TableCell, TableHead, TableRow } from "@/components/ui/table"
-import { Badge } from '@/components/ui/badge';
-
+import React, { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Sidebar from '@/components/sidebar';
 import { InfoIcon } from '@/components/ui/icons';
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
-
-
+import { Select, SelectItem } from "@nextui-org/select";
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
 export default function PurchaseOrder() {
   const [formData, setFormData] = useState({
     product: '',
@@ -60,12 +55,13 @@ export default function PurchaseOrder() {
     fetchInventoryItems();
   }, []);
 
-  const handleProductSelect = (e) => {
-    const selectedItem = inventoryItems.find(item => item.id === Number(e.target.value));
+  const handleProductSelect = (selectedOption) => {
+    const selectedItem = inventoryItems.find(item => item.id === selectedOption.value);
     if (selectedItem) {
       setFormData({
         ...formData,
         product: selectedItem.name,
+        itemName: selectedItem.name,
         quantity: selectedItem.quantity,
         pricePerUnit: selectedItem.price
       });
@@ -109,12 +105,19 @@ export default function PurchaseOrder() {
     }
   };
 
+  const productOptions = inventoryItems.map((product) => ({
+    key: product.id,
+    value: product.id,
+    label: product.name,
+  }));
+
+  console.log('inventoryItems:', inventoryItems);
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Sidebar />
       <div className="container mx-auto p-8 ml-64">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Formulario de Orden de Compra */}
           <Card className="lg:sticky lg:top-8">
             <CardHeader className="space-y-2">
               <CardTitle className="text-2xl">Crear Orden de Compra</CardTitle>
@@ -132,37 +135,18 @@ export default function PurchaseOrder() {
                       Elija un producto del catálogo existente
                     </span>
                   </Label>
+                  <div className="space-y-4">
                   <Select
-                    value={formData.product}
-                    onValueChange={(value) => setFormData({ ...formData, product: value })}
-                  >
-                    <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Seleccione un producto" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {inventoryItems.map((product) => (
-                        <SelectItem key={product.id} value={product.id.toString()}>
-                          {product.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-4">
-                  <Label htmlFor="itemName" className="text-base font-semibold">
-                    Nombre del Artículo
-                    <span className="text-sm font-normal text-gray-500 block">
-                      Ingrese el nombre específico del artículo
-                    </span>
-                  </Label>
-                  <Input
-                    id="itemName"
-                    className="h-12"
-                    placeholder="Ej: Widget Premium A-123"
-                    value={formData.itemName}
-                    onChange={(e) => setFormData({...formData, itemName: e.target.value})}
-                  />
+                      items={productOptions}
+                      onChange={handleProductSelect}
+                      placeholder="Seleccione un producto"
+                      variant='filled'
+                      className="max-w-xs"
+                      aria-label="Seleccionar Producto" // Añade este atributo
+                    >
+                      {(productOptions) => <SelectItem key={productOptions.key}>{productOptions.label}</SelectItem>}
+                    </Select>
+                  </div>
                 </div>
 
                 <div className="space-y-4">
@@ -178,7 +162,7 @@ export default function PurchaseOrder() {
                     className="h-12"
                     placeholder="Ej: 10"
                     value={formData.quantity}
-                    onChange={(e) => setFormData({...formData, quantity: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                   />
                 </div>
 
@@ -196,19 +180,19 @@ export default function PurchaseOrder() {
                     className="h-12"
                     placeholder="Ej: 99.99"
                     value={formData.pricePerUnit}
-                    onChange={(e) => setFormData({...formData, pricePerUnit: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, pricePerUnit: e.target.value })}
                   />
                 </div>
 
                 <div className="flex justify-end space-x-4 pt-6">
-                  <Button 
-                    type="button" 
-                    variant="outline" 
+                  <Button
+                    type="button"
+                    variant="outline"
                     className="h-12 px-6"
                   >
                     Cancelar
                   </Button>
-                  <Button 
+                  <Button
                     type="submit"
                     className="h-12 px-6 bg-blue-600 hover:bg-blue-700"
                   >
@@ -219,51 +203,8 @@ export default function PurchaseOrder() {
             </CardContent>
           </Card>
 
-          {/* Lista de Órdenes Recientes */}
-          <Card>
-            <CardHeader className="space-y-2">
-              <CardTitle className="text-2xl">Órdenes Recientes</CardTitle>
-              <CardDescription className="flex items-center gap-2">
-                <InfoIcon className="h-4 w-4" />
-                Listado de las últimas órdenes de compra generadas
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="font-semibold">Producto</TableHead>
-                    <TableHead className="font-semibold text-right">Cantidad</TableHead>
-                    <TableHead className="font-semibold text-right">Precio/Unidad</TableHead>
-                    <TableHead className="font-semibold text-right">Total</TableHead>
-                    <TableHead className="font-semibold">Estado</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {orders.map((order) => (
-                    <TableRow key={order.id}>
-                      <TableCell className="font-medium">{order.product}</TableCell>
-                      <TableCell className="text-right">{order.quantity}</TableCell>
-                      <TableCell className="text-right">${order.pricePerUnit}</TableCell>
-                      <TableCell className="text-right font-semibold">
-                        ${((order.total !== undefined ? order.total : order.quantity * order.pricePerUnit) || 0).toFixed(2)}
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={order.status === 'completed' ? 'success' : 'warning'}
-                          className="capitalize"
-                        >
-                          {order.status === 'completed' ? 'Completado' : 'Pendiente'}
-                        </Badge>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </div>
+         </div>
       </div>
     </div>
-  )
+  );
 }
